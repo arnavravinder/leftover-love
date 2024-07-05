@@ -11,7 +11,8 @@ export default defineConfig({
 	optimizeDeps: {
 		esbuildOptions: {
 			target: 'esnext'
-		}
+		},
+		exclude: ['date-picker-svelte']
 	},
 	build: {
 		target: 'esnext'
