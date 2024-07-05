@@ -3,6 +3,7 @@
 	import type { Restaurant } from '$lib/restaurant';
 	import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
 	import { onMount } from 'svelte';
+	import IconStar from '~icons/mdi/star';
 
 	let restaurants: Restaurant[] = [];
 
@@ -15,9 +16,12 @@
 	});
 </script>
 
-<div>
+<div class="m-2">
 	{#each restaurants as restaurant}
-		<a href={'/restaurant/' + restaurant.id} class="text-m">{restaurant.name}</a>
-		<h2>{restaurant.avgRating}</h2>
+		<div class="flex flex-row">
+			<a href={'/restaurant/' + restaurant.id} class="text-2xl">{restaurant.name}</a>
+			<IconStar class="ml-auto" />
+			<p>{restaurant.avgRating}</p>
+		</div>
 	{/each}
 </div>

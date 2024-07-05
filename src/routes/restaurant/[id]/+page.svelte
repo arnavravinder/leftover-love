@@ -1,9 +1,10 @@
 <script lang="ts">
+	import Button from '$lib/components/Button.svelte';
+	import ItemDisplay from '$lib/components/ItemDisplay.svelte';
 	import { db } from '$lib/firebase.client.js';
 	import type { Item } from '$lib/item.js';
 	import type { Restaurant } from '$lib/restaurant.js';
 	import { session } from '$lib/session';
-	import { update } from 'firebase/database';
 	import {
 		arrayUnion,
 		collection,
@@ -34,24 +35,13 @@
 </script>
 
 {#if restaurant}
-	<h1>{restaurant.name}</h1>
+	<h1 class="text-center text-4xl">{restaurant.name}</h1>
 
-	{#each items as item}
-		<h2>{item.name}</h2>
-		<p>{item.type}</p>
-		<button
-			on:click={async () => {
-				console.log($session?.user?.uid);
-				if ($session?.user?.uid) {
-					const cartDoc = doc(db, 'cart', $session?.user?.uid);
-					const cartSnapshot = await getDoc(cartDoc);
-					if (cartSnapshot.exists()) {
-						await updateDoc(cartDoc, { items: arrayUnion(item) });
-					}
-				}
-			}}>Add to cart</button
-		>
-	{/each}
+	<div class="m-2 flex flex-col gap-2">
+		{#each items as item}
+			<ItemDisplay {item} />
+		{/each}
+	</div>
 {:else}
 	<h1>Loading...</h1>
 {/if}

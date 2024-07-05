@@ -6,16 +6,18 @@
 	import { session } from '$lib/session';
 	import { addDoc, collection, getDocs, query, Timestamp, where } from 'firebase/firestore';
 	import { DateInput } from 'date-picker-svelte';
+	import ItemDisplay from '$lib/components/ItemDisplay.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	let restaurants: Restaurant[] = [];
 	let items: Item[][] = [];
 	let itemInput = '';
 	let priceInput = 0;
 	let typeInput: FoodType = 'nonVeg';
-	let timeInput = new Date();
+	let timeInput;
 
 	$: {
-		if (!$session?.userData?.isUser && $session?.user?.uid && db) {
+		if (!$session?.userData?.isUser && !!$session?.user?.uid && !!db) {
 			getDocs(
 				query(collection(db, 'restaurants'), where('ownerUid', '==', $session?.user?.uid))
 			).then((val) => {
@@ -42,43 +44,50 @@
 	}
 </script>
 
-{#if $session?.userData?.isUser}
-	<RestaurantList />
-{:else}
-	{#each restaurants as restaurant, i}
-		<h2>{restaurant.name}</h2>
+<div class="m-2">
+	{#if $session?.userData?.isUser}
+		<RestaurantList />
+	{:else}
+		{#each restaurants as restaurant, i}
+			<h1 class="text-center text-4xl">{restaurant.name}</h1>
 
-		{#each items[i] as item}
-			<h3>{item.name}</h3>
-			<p>{item.price}</p>
-			<p>{item.type}</p>
+			{#each items[i] as item}
+				<ItemDisplay {item} isUser={false} />
+			{/each}
+
+			<form
+				class="mx-auto flex w-1/2 flex-col gap-2 rounded-lg bg-slate-200 p-2"
+				on:submit={async () => {
+					await addDoc(collection(db, 'items'), {
+						restaurantId: restaurant.id,
+						name: itemInput,
+						price: priceInput,
+						type: typeInput,
+						expiry: Timestamp.fromDate(timeInput)
+					});
+				}}
+			>
+				<input class="rounded-md p-2" type="text" bind:value={itemInput} placeholder="Item name" />
+				<input
+					class="rounded-md p-2"
+					type="number"
+					bind:value={priceInput}
+					placeholder="Item price"
+				/>
+				<select bind:value={typeInput}>
+					<option value="veg">Vegetarian</option>
+					<option value="nonVeg">Non-Vegetarian</option>
+					<option value="vegan">Vegan</option>
+				</select>
+				<DateInput
+					format="dd-MM-yyyy HH:mm"
+					bind:value={timeInput}
+					min={new Date()}
+					timePrecision="minute"
+					placeholder="Expiry Date"
+				/>
+				<Button onClick={() => {}} text="Add Item" />
+			</form>
 		{/each}
-
-		<form
-			on:submit={async () => {
-				await addDoc(collection(db, 'items'), {
-					restaurantId: restaurant.id,
-					name: itemInput,
-					price: priceInput,
-					type: typeInput,
-					expiry: Timestamp.fromDate(timeInput)
-				});
-			}}
-		>
-			<input type="text" bind:value={itemInput} />
-			<input type="number" bind:value={priceInput} />
-			<select bind:value={typeInput}>
-				<option value="veg">Vegetarian</option>
-				<option value="nonVeg">Non-Vegetarian</option>
-				<option value="vegan">Vegan</option>
-			</select>
-			<DateInput
-				format="YYYY-mm-dd hh:mm"
-				bind:value={timeInput}
-				min={new Date()}
-				timePrecision="minute"
-			/>
-			<button type="submit">Add Item</button>
-		</form>
-	{/each}
-{/if}
+	{/if}
+</div>

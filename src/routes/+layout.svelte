@@ -4,6 +4,7 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import { signOut } from 'firebase/auth';
 	import { auth, db } from '$lib/firebase.client';
+	import '../app.css';
 
 	import type { LayoutData } from './$types';
 	import { load } from './+layout';
@@ -48,29 +49,33 @@
 	<div>Loading...</div>
 {:else}
 	<div>
-		{#if $session?.loggedIn}
-			Logged in: {$session?.user?.displayName}
-			<button
-				on:click={() => {
-					signOut(auth);
-					session.update((cur) => {
-						return {
-							...cur,
-							user: null,
-							loggedIn: false,
-							loading: false
-						};
-					});
-					goto('/');
-				}}>Sign Out</button
-			>
-		{:else}
-			<button
-				on:click={() => {
-					goto('/login');
-				}}>Sign In</button
-			>
-		{/if}
+		<div class="flex h-16 items-center gap-2 bg-slate-300 p-2">
+			{#if $session?.loggedIn}
+				<p class="ml-auto text-2xl">{$session?.user?.displayName}</p>
+				<button
+					class="rounded-md bg-slate-400 p-2 transition-colors hover:bg-slate-500"
+					on:click={() => {
+						signOut(auth);
+						session.update((cur) => {
+							return {
+								...cur,
+								user: null,
+								loggedIn: false,
+								loading: false
+							};
+						});
+						goto('/');
+					}}>Sign Out</button
+				>
+			{:else}
+				<button
+					class="ml-auto rounded-md bg-slate-400 p-2 transition-colors hover:bg-slate-500"
+					on:click={() => {
+						goto('/login');
+					}}>Sign In</button
+				>
+			{/if}
+		</div>
 		<slot />
 	</div>
 {/if}

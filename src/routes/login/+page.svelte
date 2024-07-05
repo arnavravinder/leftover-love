@@ -9,6 +9,7 @@
 		type UserCredential
 	} from 'firebase/auth';
 	import { goto } from '$app/navigation';
+	import Button from '$lib/components/Button.svelte';
 
 	let email: string = '';
 	let password: string = '';
@@ -45,7 +46,8 @@
 						email,
 						photoURL,
 						uid
-					}
+					},
+					userData: null
 				});
 
 				goto('/');
@@ -56,16 +58,16 @@
 	}
 </script>
 
-<div class="login-form">
-	<h1>Login</h1>
-	<form on:submit={loginWithMail}>
-		<input bind:value={email} type="text" placeholder="Email" />
-		<input bind:value={password} type="password" placeholder="Password" />
-		<button type="submit">Login</button>
+<div class="m-4 mx-auto flex w-96 flex-col items-center gap-2 rounded-xl bg-slate-200 p-2">
+	<h1 class="text-center text-4xl">Login</h1>
+	<form class="flex flex-col gap-2" on:submit={loginWithMail}>
+		<input class="rounded-md p-2" bind:value={email} type="text" placeholder="Email" />
+		<input class="rounded-md p-2" bind:value={password} type="password" placeholder="Password" />
+		<Button type="submit" text="Sign in" onClick={loginWithMail} />
 	</form>
 
 	<div>or</div>
 
-	<button on:click={loginWithGoogle}>Login with Google</button>
+	<Button onClick={loginWithGoogle} text="Login with Google" />
 	<div>Don't you have an account? <a href="/register"> Register</a></div>
 </div>
