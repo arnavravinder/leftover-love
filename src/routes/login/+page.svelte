@@ -135,5 +135,4 @@
 	<div>or</div>
 
 	<Button onClick={loginWithGoogle} text="Login with Google" />
-	<div>Don't you have an account? <a href="/register"> Register</a></div>
 </div>
