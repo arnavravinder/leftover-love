@@ -10,6 +10,7 @@ type User = {
 	email?: string | null;
 	displayName?: string | null;
 	photoURL?: string | null;
+	phoneNumber?: string | null;
 	uid?: string | null;
 };
 

@@ -2,25 +2,22 @@
 	import { onMount } from 'svelte';
 	import { session } from '$lib/session';
 	import { goto, invalidateAll } from '$app/navigation';
-	import { signOut } from 'firebase/auth';
+	import { signOut, type User } from 'firebase/auth';
 	import { auth, db } from '$lib/firebase.client';
 	import '../app.css';
 
 	import type { LayoutData } from './$types';
-	import { load } from './+layout';
 	import { collection, getDocs, query, where } from 'firebase/firestore';
 	export let data: LayoutData;
 
 	let loading: boolean = true;
-	let loggedIn: boolean = false;
 
 	session.subscribe((cur: any) => {
 		loading = cur?.loading;
-		loggedIn = cur?.loggedIn;
 	});
 
 	onMount(async () => {
-		const user = await data.getAuthUser();
+		const user = (await data.getAuthUser()) as User;
 		const userDataQuery = query(collection(db, 'userInfo'), where('uid', '==', user.uid));
 		const userDataDocs = await getDocs(userDataQuery);
 		if (userDataDocs.empty) {
@@ -31,7 +28,7 @@
 			userData = val.data();
 		});
 
-		const loggedIn = !!user && user?.emailVerified;
+		const loggedIn = !!user && user.uid;
 		session.update((cur: any) => {
 			loading = false;
 			return {
@@ -51,7 +48,7 @@
 	<div>
 		<div class="flex h-16 items-center gap-2 bg-slate-300 p-2">
 			{#if $session?.loggedIn}
-				<p class="ml-auto text-2xl">{$session?.user?.displayName}</p>
+				<p class="ml-auto text-2xl">{$session?.user?.displayName || $session?.user?.phoneNumber}</p>
 				<button
 					class="rounded-md bg-slate-400 p-2 transition-colors hover:bg-slate-500"
 					on:click={() => {
