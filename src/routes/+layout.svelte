@@ -4,10 +4,12 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import { signOut, type User } from 'firebase/auth';
 	import { auth, db } from '$lib/firebase.client';
+	import CartIcon from '~icons/mdi/cart';
 	import '../app.css';
 
 	import type { LayoutData } from './$types';
 	import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+	import Button from '$lib/components/Button.svelte';
 	export let data: LayoutData;
 
 	let loading: boolean = true;
@@ -50,9 +52,10 @@
 		<div class="flex h-16 items-center gap-2 bg-slate-300 p-2">
 			{#if $session?.loggedIn}
 				<p class="ml-auto text-2xl">{$session?.user?.displayName || $session?.user?.phoneNumber}</p>
-				<button
-					class="rounded-md bg-slate-400 p-2 transition-colors hover:bg-slate-500"
-					on:click={() => {
+				<a href="/cart"><CartIcon class="my-auto" /></a>
+				<Button
+					text="Sign Out"
+					onClick={() => {
 						signOut(auth);
 						session.update((cur) => {
 							return {
@@ -63,8 +66,8 @@
 							};
 						});
 						goto('/');
-					}}>Sign Out</button
-				>
+					}}
+				/>
 			{:else}
 				<button
 					class="ml-auto rounded-md bg-slate-400 p-2 transition-colors hover:bg-slate-500"
