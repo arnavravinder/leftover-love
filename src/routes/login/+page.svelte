@@ -5,14 +5,32 @@
 		GoogleAuthProvider,
 		signInWithPopup,
 		signInWithPhoneNumber,
-		type ConfirmationResult
+		type ConfirmationResult,
+		useDeviceLanguage,
+		RecaptchaVerifier
 	} from 'firebase/auth';
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/Button.svelte';
-	import { recaptchaStore, recaptchaValidStore } from '$lib/auth';
+	import { recaptchaStore } from '$lib/auth';
 	import { get } from 'svelte/store';
+	import { onMount } from 'svelte';
+	import { setWindowProp } from '$lib/window';
 
 	let confirmation: ConfirmationResult;
+
+	onMount(() => {
+		useDeviceLanguage(auth);
+
+		const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+			size: 'normal'
+		});
+
+		recaptchaStore.set(recaptchaVerifier);
+
+		recaptchaVerifier.render().then((widgetId) => {
+			setWindowProp('recaptchaWidgetId', widgetId);
+		});
+	});
 
 	async function handlePhoneSubmit() {
 		if (!phoneNumberFormValid) {
@@ -26,7 +44,7 @@
 		const appVerifier = get(recaptchaStore);
 		if (!appVerifier) return;
 
-		confirmation = await signInWithPhoneNumber(auth, fullPhoneNumber, get(recaptchaStore));
+		confirmation = await signInWithPhoneNumber(auth, fullPhoneNumber, appVerifier);
 
 		loading = false;
 	}
@@ -35,6 +53,7 @@
 		const provider = new GoogleAuthProvider();
 		await signInWithPopup(auth, provider)
 			.then((result) => {
+				if (!result) return;
 				const { displayName, email, photoURL, uid } = result?.user;
 				session.set({
 					loggedIn: true,
@@ -92,8 +111,7 @@
 	$: countryCodeValid = countryCode !== null && countryCode.length !== 0;
 	$: phoneNumberBodyValid = phoneNumberBody !== null && phoneNumberBody.length !== 0;
 
-	$: phoneNumberFormValid =
-		$recaptchaValidStore && countryCodeValid && phoneNumberBodyValid && !loading;
+	$: phoneNumberFormValid = countryCodeValid && phoneNumberBodyValid && !loading;
 
 	$: OTPFormValid = OTPCode.length === 6 && confirmation && !loading;
 </script>
@@ -114,7 +132,7 @@
 				bind:value={phoneNumberBody}
 				placeholder="Phone Number"
 			/>
-			<div id="recaptcha-container"></div>
+			<div id="recaptcha-container" />
 			<Button type="submit" text="Send OTP" />
 		</form>
 	{:else}

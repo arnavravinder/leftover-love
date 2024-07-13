@@ -69,11 +69,9 @@
 					}}
 				/>
 			{:else}
-				<button
+				<a
 					class="ml-auto rounded-md bg-slate-400 p-2 transition-colors hover:bg-slate-500"
-					on:click={() => {
-						goto('/login');
-					}}>Sign In</button
+					href="/login">Sign In</a
 				>
 			{/if}
 		</div>
