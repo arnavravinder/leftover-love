@@ -6,7 +6,7 @@
 </script>
 
 <button
-	class={'rounded-md bg-slate-400 p-2 transition-all hover:bg-slate-500 disabled:opacity-75 ' +
+	class={'rounded-md bg-slate-400 p-2 transition-all hover:bg-slate-500 disabled:opacity-75 disabled:hover:bg-slate-400 ' +
 		$$props.class}
 	on:click={onClick}
 	{disabled}

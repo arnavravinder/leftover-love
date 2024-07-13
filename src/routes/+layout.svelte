@@ -7,7 +7,7 @@
 	import '../app.css';
 
 	import type { LayoutData } from './$types';
-	import { collection, getDocs, query, where } from 'firebase/firestore';
+	import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 	export let data: LayoutData;
 
 	let loading: boolean = true;
@@ -18,6 +18,7 @@
 
 	onMount(async () => {
 		const user = (await data.getAuthUser()) as User;
+		if (!user.uid) return;
 		const userDataQuery = query(collection(db, 'userInfo'), where('uid', '==', user.uid));
 		const userDataDocs = await getDocs(userDataQuery);
 		if (userDataDocs.empty) {

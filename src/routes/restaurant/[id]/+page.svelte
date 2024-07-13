@@ -1,23 +1,9 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
 	import ItemDisplay from '$lib/components/ItemDisplay.svelte';
 	import { db } from '$lib/firebase.client.js';
 	import type { Item } from '$lib/item.js';
 	import type { Restaurant } from '$lib/restaurant.js';
-	import { session } from '$lib/session';
-	import {
-		arrayUnion,
-		collection,
-		doc,
-		FieldValue,
-		getDoc,
-		getDocs,
-		getFirestore,
-		query,
-		Timestamp,
-		updateDoc,
-		where
-	} from 'firebase/firestore';
+	import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 	import { onMount } from 'svelte';
 
 	export let data;
@@ -29,7 +15,7 @@
 		const q = await getDocs(query(collection(db, 'items'), where('restaurantId', '==', data.id)));
 		q.forEach((val) => {
 			console.log(val.data());
-			items = [...items, val.data() as Item];
+			items = [...items, { ...val.data(), id: val.id } as Item];
 		});
 	});
 </script>

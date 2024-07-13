@@ -4,7 +4,10 @@
 	import VegIcon from '~icons/mdi/square-circle';
 	import NonVegIcon from '~icons/mdi/triangle';
 	import Button from './Button.svelte';
-	import { session } from '$lib/session';
+	import { cart } from '$lib/cart';
+
+	$: inCart = $cart.items.some((val) => val.id === item.id);
+	$: idx = inCart ? $cart.items.findIndex((val) => val.id === item.id) : -1;
 
 	export let item: Item;
 	export let isUser: boolean = true;
@@ -20,18 +23,44 @@
 	{/if}
 	<h2 class="text-2xl">{item.name}</h2>
 	{#if isUser}
-		<Button
-			onClick={async () => {
-				if ($session?.user?.uid) {
-					const cartDoc = doc(db, 'cart', $session?.user?.uid);
-					const cartSnapshot = await getDoc(cartDoc);
-					if (cartSnapshot.exists()) {
-						await updateDoc(cartDoc, { items: arrayUnion(item) });
+		{#if !inCart}
+			<Button
+				onClick={async () => {
+					if ($cart.restaurantId === '') {
+						$cart.restaurantId = item.restaurantId;
+					} else if (item.restaurantId !== $cart.restaurantId) {
+						if (
+							confirm(
+								'You can only add items from one restaurant at a time. Would you like to clear your cart to add this item?'
+							)
+						) {
+							$cart.items = [];
+							$cart.restaurantId = item.restaurantId;
+						} else {
+							return;
+						}
 					}
-				}
-			}}
-			text="Add to cart"
-			class="ml-auto"
-		/>
+
+					$cart.items = [
+						...$cart.items,
+						{
+							...item,
+							quantity: 1
+						}
+					];
+				}}
+				text="Add to cart"
+				class="ml-auto"
+			/>
+		{:else}
+			<input
+				class="ml-auto w-8 rounded-md bg-slate-200 p-1 text-center"
+				type="number"
+				bind:value={$cart.items[idx].quantity}
+				on:blur={() => {
+					if ($cart.items[idx].quantity == 0) $cart.items = $cart.items.toSpliced(idx, 1);
+				}}
+			/>
+		{/if}
 	{/if}
 </div>
