@@ -10,20 +10,13 @@
 
 	const placeOrder = async () => {
 		if (!$session || !$session.user || !$session.user.uid) return;
-		console.log({
-			uid: $session.user?.uid,
-			items: $cart.items.map((val) => val.id),
-			quantities: $cart.items.map((val) => val.quantity),
-			completed: false,
-			restaurantId: $cart.restaurantId
-		} as Order);
-
 		addDoc(collection(db, 'orders'), {
 			uid: $session.user?.uid,
 			items: $cart.items.map((val) => val.id),
 			quantities: $cart.items.map((val) => val.quantity),
 			completed: false,
-			restaurantId: $cart.restaurantId
+			restaurantId: $cart.restaurantId,
+			name: $session.user.displayName ?? $session.user.phoneNumber
 		} as Order);
 		$cart.items = [];
 		$cart.restaurantId = '';

@@ -10,6 +10,7 @@
 	import type { LayoutData } from './$types';
 	import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 	import Button from '$lib/components/Button.svelte';
+	import { restaurant, type Restaurant } from '$lib/restaurant';
 	export let data: LayoutData;
 
 	let loading: boolean = true;
@@ -42,6 +43,20 @@
 				loading: false
 			};
 		});
+
+		if (!userData.isUser) {
+			const restaurantQuery = query(
+				collection(db, 'restaurants'),
+				where('ownerUid', '==', user.uid)
+			);
+			const restaurantDocs = await getDocs(restaurantQuery);
+			if (restaurantDocs.empty) {
+				throw Error('User is not owner of restaurant');
+			}
+			const restaurantData = restaurantDocs.docs[0].data();
+
+			restaurant.set({ ...(restaurantData as Restaurant), id: restaurantDocs.docs[0].id });
+		}
 	});
 </script>
 
@@ -52,7 +67,9 @@
 		<div class="flex h-16 items-center gap-2 bg-slate-300 p-2">
 			{#if $session?.loggedIn}
 				<p class="ml-auto text-2xl">{$session?.user?.displayName || $session?.user?.phoneNumber}</p>
-				<a href="/cart"><CartIcon class="my-auto" /></a>
+				{#if $session?.userData?.isUser}
+					<a href="/cart"><CartIcon class="my-auto" /></a>
+				{/if}
 				<Button
 					text="Sign Out"
 					onClick={() => {
