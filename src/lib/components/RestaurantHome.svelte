@@ -2,7 +2,16 @@
 	import { db } from '$lib/firebase.client';
 	import type { FoodType, Item } from '$lib/item';
 	import type { Restaurant } from '$lib/restaurant';
-	import { addDoc, collection, getDocs, query, Timestamp, where } from 'firebase/firestore';
+	import {
+		addDoc,
+		collection,
+		deleteDoc,
+		doc,
+		getDocs,
+		query,
+		Timestamp,
+		where
+	} from 'firebase/firestore';
 	import { DateInput } from 'date-picker-svelte';
 	import ItemDisplay from '$lib/components/ItemDisplay.svelte';
 	import Button from '$lib/components/Button.svelte';
@@ -30,7 +39,7 @@
 					getDocs(query(collection(db, 'items'), where('restaurantId', '==', x.id))).then(
 						(itemsDocs) => {
 							itemsDocs.forEach((y) => {
-								items[idx] = [...items[idx], y.data() as Item];
+								items[idx] = [...items[idx], { id: y.id, ...(y.data() as Item) }];
 							});
 						}
 					);
@@ -43,20 +52,32 @@
 {#each restaurants as restaurant, i}
 	<h1 class="text-center text-4xl">{restaurant.name}</h1>
 
-	{#each items[i] as item}
-		<ItemDisplay {item} isUser={false} />
+	{#each items[i] as item, j}
+		<ItemDisplay
+			{item}
+			isUser={false}
+			onRemove={async () => {
+				await deleteDoc(doc(db, 'items', item.id));
+				items[i] = items[i].toSpliced(j, 1);
+			}}
+		/>
 	{/each}
 
 	<form
 		class="mx-auto flex w-1/2 flex-col gap-2 rounded-lg bg-slate-200 p-2"
 		on:submit={async () => {
-			await addDoc(collection(db, 'items'), {
+			const newItem = {
 				restaurantId: restaurant.id,
 				name: itemInput,
 				price: priceInput,
 				type: typeInput,
 				expiry: Timestamp.fromDate(timeInput)
-			});
+			};
+			await addDoc(collection(db, 'items'), newItem);
+			items[i] = [...items[i], newItem];
+			itemInput = '';
+			priceInput = 0;
+			typeInput = 'nonVeg';
 		}}
 	>
 		<input class="rounded-md p-2" type="text" bind:value={itemInput} placeholder="Item name" />
@@ -73,6 +94,6 @@
 			timePrecision="minute"
 			placeholder="Expiry Date"
 		/>
-		<Button onClick={() => {}} text="Add Item" />
+		<Button type="submit" text="Add Item" />
 	</form>
 {/each}

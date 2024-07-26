@@ -5,6 +5,7 @@
 	import { signOut, type User } from 'firebase/auth';
 	import { auth, db } from '$lib/firebase.client';
 	import CartIcon from '~icons/mdi/cart';
+	import logo from '$lib/assets/logo.png';
 	import '../app.css';
 
 	import type { LayoutData } from './$types';
@@ -65,6 +66,7 @@
 {:else}
 	<div>
 		<div class="flex h-16 items-center gap-2 bg-slate-300 p-2">
+			<a href="/"><img class="w-16" alt="logo" src={logo} /></a>
 			{#if $session?.loggedIn}
 				<p class="ml-auto text-2xl">{$session?.user?.displayName || $session?.user?.phoneNumber}</p>
 				{#if $session?.userData?.isUser}

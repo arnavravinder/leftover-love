@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { Item } from '$lib/item';
-	import VeganIcon from '~icons/mdi/alpha-v';
+	import VeganIcon from '~icons/mdi/alpha-v-circle';
 	import VegIcon from '~icons/mdi/square-circle';
 	import NonVegIcon from '~icons/mdi/triangle';
+	import CloseIcon from '~icons/mdi/close-thick';
 	import Button from './Button.svelte';
 	import { cart } from '$lib/cart';
 
@@ -11,13 +12,14 @@
 
 	export let item: Item;
 	export let isUser: boolean = true;
+	export let onRemove: () => void = () => {};
 </script>
 
 <div class="flex flex-row gap-2">
 	{#if item.type == 'veg'}
 		<VegIcon class="my-auto text-green-500" />
 	{:else if item.type == 'vegan'}
-		<VeganIcon class="my-auto text-green-500" />
+		<VeganIcon class="my-auto text-green-500" font-size={20} />
 	{:else}
 		<NonVegIcon class="my-auto text-red-800" />
 	{/if}
@@ -62,5 +64,18 @@
 				}}
 			/>
 		{/if}
+	{:else}
+		<p class="ml-auto">
+			Expires on: {item.expiry
+				?.toDate()
+				.toLocaleString('en-IN', {
+					year: '2-digit',
+					month: '2-digit',
+					day: '2-digit',
+					hour: '2-digit',
+					minute: '2-digit'
+				})}
+		</p>
+		<button on:click={onRemove}><CloseIcon font-size="25" color="red" /></button>
 	{/if}
 </div>
