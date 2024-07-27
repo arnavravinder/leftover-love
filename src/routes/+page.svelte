@@ -4,7 +4,7 @@
 	import RestaurantHome from '$lib/components/RestaurantHome.svelte';
 </script>
 
-<div class="m-2">
+<div>
 	{#if $session?.userData?.isUser}
 		<RestaurantList />
 	{:else if $session?.user?.uid}

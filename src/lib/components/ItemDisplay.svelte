@@ -15,18 +15,25 @@
 	export let onRemove: () => void = () => {};
 </script>
 
-<div class="flex flex-row gap-2">
-	{#if item.type == 'veg'}
-		<VegIcon class="my-auto text-green-500" />
-	{:else if item.type == 'vegan'}
-		<VeganIcon class="my-auto text-green-500" font-size={20} />
-	{:else}
-		<NonVegIcon class="my-auto text-red-800" />
-	{/if}
-	<h2 class="text-2xl">{item.name}</h2>
+<div class="flex flex-row gap-2 bg-white p-4 shadow">
+	<img src="https://via.placeholder.com/100x100" />
+	<div class="flex flex-col">
+		<div class="flex h-8 flex-row">
+			<h2 class="text-blueNew mr-2 text-2xl font-bold">{item.name}</h2>
+			{#if item.type == 'veg'}
+				<VegIcon class="self-center text-green-500" />
+			{:else if item.type == 'vegan'}
+				<VeganIcon class="self-center text-green-500" font-size={20} />
+			{:else}
+				<NonVegIcon class="self-center text-red-800" />
+			{/if}
+		</div>
+		<p>Description</p>
+	</div>
 	{#if isUser}
 		{#if !inCart}
 			<Button
+				class="border-blueNew text-blueNew ml-auto self-center border bg-white text-sm"
 				onClick={async () => {
 					if ($cart.restaurantId === '') {
 						$cart.restaurantId = item.restaurantId;
@@ -51,8 +58,7 @@
 						}
 					];
 				}}
-				text="Add to cart"
-				class="ml-auto"
+				text="ADD"
 			/>
 		{:else}
 			<input
@@ -66,15 +72,13 @@
 		{/if}
 	{:else}
 		<p class="ml-auto">
-			Expires on: {item.expiry
-				?.toDate()
-				.toLocaleString('en-IN', {
-					year: '2-digit',
-					month: '2-digit',
-					day: '2-digit',
-					hour: '2-digit',
-					minute: '2-digit'
-				})}
+			Expires on: {item.expiry?.toDate().toLocaleString('en-IN', {
+				year: '2-digit',
+				month: '2-digit',
+				day: '2-digit',
+				hour: '2-digit',
+				minute: '2-digit'
+			})}
 		</p>
 		<button on:click={onRemove}><CloseIcon font-size="25" color="red" /></button>
 	{/if}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { db } from '$lib/firebase.client';
 	import type { Restaurant } from '$lib/restaurant';
 	import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
@@ -16,12 +17,21 @@
 	});
 </script>
 
-<div class="m-2">
+<div class="m-4 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8">
 	{#each restaurants as restaurant}
-		<div class="flex flex-row">
-			<a href={'/restaurant/' + restaurant.id} class="text-2xl">{restaurant.name}</a>
-			<IconStar class="ml-auto" />
-			<p>{restaurant.avgRating}</p>
+		<div
+			class="flex cursor-pointer flex-col rounded-lg bg-white"
+			role="menuitem"
+			on:click={() => {
+				goto('/restaurant/' + restaurant.id);
+			}}
+		>
+			<img class="rounded-t-md" src={restaurant.photo} />
+			<div class="m-4">
+				<p class="text-blueNew text-2xl font-bold">
+					{restaurant.name}
+				</p>
+			</div>
 		</div>
 	{/each}
 </div>

@@ -20,14 +20,21 @@
 	});
 </script>
 
-{#if restaurant}
-	<h1 class="text-center text-4xl">{restaurant.name}</h1>
-
-	<div class="m-2 flex flex-col gap-2">
-		{#each items as item}
-			<ItemDisplay {item} />
-		{/each}
-	</div>
-{:else}
-	<h1>Loading...</h1>
-{/if}
+<div class="m-2">
+	{#if restaurant}
+		<div class="flex">
+			<img src={restaurant.photo} class="mr-8 w-96" />
+			<div class="flex flex-col justify-center">
+				<h1 class="text-blueNew text-4xl font-bold">{restaurant.name}</h1>
+				<p>{restaurant.city}</p>
+			</div>
+		</div>
+		<div class="mt-2 flex flex-col gap-2">
+			{#each items as item}
+				<ItemDisplay {item} />
+			{/each}
+		</div>
+	{:else}
+		<h1>Loading...</h1>
+	{/if}
+</div>
