@@ -39,7 +39,7 @@
 
 		loading = true;
 
-		const fullPhoneNumber = `+${countryCode! + phoneNumberBody!}`;
+		const fullPhoneNumber = `+91${phoneNumberBody!}`;
 
 		const appVerifier = get(recaptchaStore);
 		if (!appVerifier) return;
@@ -103,54 +103,60 @@
 		loading = false;
 	}
 
-	let countryCode = '';
 	let phoneNumberBody = '';
 	let loading = false;
 	let OTPCode = '';
 
-	$: countryCodeValid = countryCode !== null && countryCode.length !== 0;
 	$: phoneNumberBodyValid = phoneNumberBody !== null && phoneNumberBody.length !== 0;
 
-	$: phoneNumberFormValid = countryCodeValid && phoneNumberBodyValid && !loading;
+	$: phoneNumberFormValid = phoneNumberBodyValid && !loading;
 
 	$: OTPFormValid = OTPCode.length === 6 && confirmation && !loading;
 </script>
 
-<div class="m-4 mx-auto flex w-96 flex-col items-center gap-2 rounded-xl bg-slate-200 p-2">
-	<h1 class="text-center text-4xl">Login</h1>
-	{#if !confirmation}
-		<form class="flex flex-col gap-2" on:submit={handlePhoneSubmit}>
-			<input
-				class="rounded-md p-2"
-				type="text"
-				bind:value={countryCode}
-				placeholder="Country Code"
-			/>
-			<input
-				class="rounded-md p-2"
-				type="text"
-				bind:value={phoneNumberBody}
-				placeholder="Phone Number"
-			/>
-			<div id="recaptcha-container" />
-			<Button type="submit" text="Send OTP" />
-		</form>
-	{:else}
-		<form class="flex flex-col gap-2" on:submit={handleOTPSubmit}>
-			<input
-				class="rounded-md p-2"
-				type="text"
-				bind:value={OTPCode}
-				on:input={() => {
-					if (OTPCode.length > 6) OTPCode = OTPCode.substring(0, 6);
-				}}
-				placeholder="OTP"
-			/>
-			<Button disabled={OTPCode.length < 6} type="submit" text="Submit" />
-		</form>
-	{/if}
+<div class="flex h-full flex-col justify-center">
+	<div class="m-4 mx-auto my-auto flex flex-col items-center gap-2 rounded-xl bg-white p-8 shadow">
+		<h1 class="text-blueNew text-center text-4xl font-bold">Login</h1>
+		{#if !confirmation}
+			<form class="flex flex-col gap-2" on:submit={handlePhoneSubmit}>
+				<div class="flex">
+					<p class="self-center rounded-l-md bg-gray-100 p-3">+91</p>
+					<input
+						class="w-full rounded-r-md border p-2"
+						type="tel"
+						bind:value={phoneNumberBody}
+						placeholder="Enter phone number"
+					/>
+				</div>
+				<div id="recaptcha-container" />
+				<Button class="bg-redNew text-white" type="submit" text="Send OTP" />
+			</form>
+		{:else}
+			<form class="flex flex-col gap-2" on:submit={handleOTPSubmit}>
+				<input
+					class="w-full rounded-md border p-2"
+					type="text"
+					bind:value={OTPCode}
+					on:input={() => {
+						if (OTPCode.length > 6) OTPCode = OTPCode.substring(0, 6);
+					}}
+					placeholder="OTP"
+				/>
+				<Button
+					class="bg-redNew text-white"
+					disabled={OTPCode.length < 6}
+					type="submit"
+					text="Submit"
+				/>
+			</form>
+		{/if}
 
-	<div>or</div>
+		<div>or</div>
 
-	<Button onClick={loginWithGoogle} text="Login with Google" />
+		<Button
+			class="bg-blueNew w-full text-white"
+			onClick={loginWithGoogle}
+			text="Login with Google"
+		/>
+	</div>
 </div>
