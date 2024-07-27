@@ -20,7 +20,7 @@
 	});
 </script>
 
-<div class="m-2">
+<div class="m-8">
 	{#if restaurant}
 		<div class="flex">
 			<img src={restaurant.photo} class="mr-8 w-96" />

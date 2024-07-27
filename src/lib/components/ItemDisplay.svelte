@@ -61,14 +61,29 @@
 				text="ADD"
 			/>
 		{:else}
-			<input
-				class="ml-auto w-8 rounded-md bg-slate-200 p-1 text-center"
-				type="number"
-				bind:value={$cart.items[idx].quantity}
-				on:blur={() => {
-					if ($cart.items[idx].quantity == 0) $cart.items = $cart.items.toSpliced(idx, 1);
-				}}
-			/>
+			<div class="text-blueNew ml-auto flex h-8 flex-row self-center">
+				<button
+					class="border-blueNew w-8 self-center rounded-l-md border p-2 text-center"
+					on:click={() => {
+						$cart.items[idx].quantity--;
+						if ($cart.items[idx].quantity == 0) $cart.items = $cart.items.toSpliced(idx, 1);
+					}}
+				>
+					-
+				</button>
+				<span
+					class="border-blueNew self-center border-y px-4 py-2 text-center"
+					on:blur={() => {
+						if ($cart.items[idx].quantity == 0) $cart.items = $cart.items.toSpliced(idx, 1);
+					}}>{$cart.items[idx].quantity}</span
+				>
+				<button
+					class="border-blueNew w-8 self-center rounded-r-md border p-2 text-center"
+					on:click={() => $cart.items[idx].quantity++}
+				>
+					+
+				</button>
+			</div>
 		{/if}
 	{:else}
 		<p class="ml-auto">
