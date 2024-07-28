@@ -29,15 +29,17 @@
 			{/if}
 		</div>
 		<p>{item.description}</p>
-		<p>
-			Expires on: {item.expiry?.toDate().toLocaleString('en-IN', {
-				year: '2-digit',
-				month: '2-digit',
-				day: '2-digit',
-				hour: '2-digit',
-				minute: '2-digit'
-			})}
-		</p>
+		{#if item.expiry?.toDate}
+			<p>
+				Expires on: {item.expiry?.toDate().toLocaleString('en-IN', {
+					year: '2-digit',
+					month: '2-digit',
+					day: '2-digit',
+					hour: '2-digit',
+					minute: '2-digit'
+				})}
+			</p>
+		{/if}
 	</div>
 	{#if isUser}
 		{#if !inCart}
