@@ -6,6 +6,8 @@ export type Item = {
 	name: string;
 	id: string;
 	restaurantId: string;
+	photo: string;
+	description: string;
 	expiry?: Timestamp;
 };
 

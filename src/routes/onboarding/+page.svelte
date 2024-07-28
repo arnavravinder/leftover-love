@@ -35,18 +35,18 @@
 			</select>
 		{:else if step == 2 && !isUser}
 			<p class="text-2xl font-bold text-blueNew">2. What's the name of your restaurant?</p>
-			<input class="w-full rounded-r-md border p-2" placeholder="Enter name" bind:value={name} />
+			<input class="w-full rounded-md border p-2" placeholder="Enter name" bind:value={name} />
 		{:else if step == 3 && !isUser}
 			<p class="text-2xl font-bold text-blueNew">3. What's the address of your restaurant?</p>
 			<input
-				class="w-full rounded-r-md border p-2"
+				class="w-full rounded-md border p-2"
 				placeholder="Enter address"
 				bind:value={address}
 			/>
 		{:else if step == 4 && !isUser}
 			<p class="text-2xl font-bold text-blueNew">4. What's the phone number of your restaurant?</p>
 			<input
-				class="w-full rounded-r-md border p-2"
+				class="w-full rounded-md border p-2"
 				placeholder="Enter phone number"
 				bind:value={phoneNumber}
 			/>
@@ -54,10 +54,10 @@
 			<p class="text-2xl font-bold text-blueNew">
 				5. What's the website / Google profile of your restaurant?
 			</p>
-			<input class="w-full rounded-r-md border p-2" placeholder="Enter URL" bind:value={URL} />
+			<input class="w-full rounded-md border p-2" placeholder="Enter URL" bind:value={URL} />
 		{:else if step == 6 && !isUser}
 			<p class="text-2xl font-bold text-blueNew">6. Upload a picture for your restaurant</p>
-			<input class="w-full rounded-r-md border p-2" type="file" accept="image/*" bind:files />
+			<input class="w-full rounded-md border p-2" type="file" accept="image/*" bind:files />
 		{:else if step == 2 && isUser}
 			<p class="text-2xl font-bold text-blueNew">That's it! Submit and you can enjoy Plateful!</p>
 		{/if}
