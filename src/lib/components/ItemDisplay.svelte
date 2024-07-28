@@ -29,6 +29,15 @@
 			{/if}
 		</div>
 		<p>{item.description}</p>
+		<p>
+			Expires on: {item.expiry?.toDate().toLocaleString('en-IN', {
+				year: '2-digit',
+				month: '2-digit',
+				day: '2-digit',
+				hour: '2-digit',
+				minute: '2-digit'
+			})}
+		</p>
 	</div>
 	{#if isUser}
 		{#if !inCart}
@@ -86,15 +95,6 @@
 			</div>
 		{/if}
 	{:else}
-		<p class="ml-auto">
-			Expires on: {item.expiry?.toDate().toLocaleString('en-IN', {
-				year: '2-digit',
-				month: '2-digit',
-				day: '2-digit',
-				hour: '2-digit',
-				minute: '2-digit'
-			})}
-		</p>
-		<button on:click={onRemove}><CloseIcon font-size="25" color="red" /></button>
+		<button class="ml-auto" on:click={onRemove}><CloseIcon font-size="25" color="red" /></button>
 	{/if}
 </div>
