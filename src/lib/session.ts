@@ -4,6 +4,8 @@ import type { FoodType } from './item';
 type UserData = {
 	foodPref: FoodType;
 	isUser: boolean;
+	name: string;
+	phoneNumber: string;
 };
 
 type User = {

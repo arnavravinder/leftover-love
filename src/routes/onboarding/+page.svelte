@@ -59,7 +59,15 @@
 			<p class="text-2xl font-bold text-blueNew">6. Upload a picture for your restaurant</p>
 			<input class="w-full rounded-md border p-2" type="file" accept="image/*" bind:files />
 		{:else if step == 2 && isUser}
-			<p class="text-2xl font-bold text-blueNew">That's it! Submit and you can enjoy Plateful!</p>
+			<p class="text-2xl font-bold text-blueNew">2. What's your name?</p>
+			<input class="w-full rounded-md border p-2" placeholder="Enter name" bind:value={name} />
+		{:else if step == 3 && isUser}
+			<p class="text-2xl font-bold text-blueNew">4. What's your phone number?</p>
+			<input
+				class="w-full rounded-md border p-2"
+				placeholder="Enter phone number"
+				bind:value={phoneNumber}
+			/>
 		{/if}
 		<div>
 			<button
@@ -85,20 +93,23 @@
 						});
 						await addDoc(collection(db, 'userInfo'), {
 							isUser: false,
-							uid: $session?.user?.uid
+							uid: $session?.user?.uid,
+							name
 						});
 						goto('/');
-					} else if (isUser && step < 2) step++;
+					} else if (isUser && step < 3) step++;
 					else if (isUser) {
 						await addDoc(collection(db, 'userInfo'), {
 							isUser: true,
-							uid: $session?.user?.uid
+							uid: $session?.user?.uid,
+							name,
+							phoneNumber
 						});
 						goto('/');
 					}
 				}}
 				disabled={nextDisabled}
-				>{(step < 6 && !isUser) || (isUser && step < 2) ? 'Next' : 'Submit'}</button
+				>{(step < 6 && !isUser) || (isUser && step < 3) ? 'Next' : 'Submit'}</button
 			>
 		</div>
 	</div>
