@@ -25,8 +25,8 @@
 		<div class="flex">
 			<img src={restaurant.photo} class="mr-8 w-96" />
 			<div class="flex flex-col justify-center">
-				<h1 class="text-blueNew text-4xl font-bold">{restaurant.name}</h1>
-				<p>{restaurant.city}</p>
+				<h1 class="text-4xl font-bold text-blueNew">{restaurant.name}</h1>
+				<p>{restaurant.address}</p>
 			</div>
 		</div>
 		<div class="mt-2 flex flex-col gap-2">
