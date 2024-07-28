@@ -62,7 +62,7 @@
 <div class="flex h-16 items-center gap-2 bg-headerBg p-2 shadow">
 	<a href="/"><img class="w-16" alt="logo" src={logo} /></a>
 	{#if $session?.loggedIn}
-		<p class="ml-auto text-2xl">{$session?.userData?.name}</p>
+		<p class="ml-auto text-2xl">{$session?.userData?.name || ''}</p>
 		{#if $session?.userData?.isUser}
 			<a href="/cart"><CartIcon class="my-auto" /></a>
 		{/if}
