@@ -5,6 +5,7 @@
 	import type { Restaurant } from '$lib/restaurant.js';
 	import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 	import { onMount } from 'svelte';
+	import BackIcon from '~icons/mdi/arrow-left';
 
 	export let data;
 	let restaurant: Restaurant;
@@ -21,6 +22,9 @@
 </script>
 
 <div class="m-8">
+	<a href="/" class="mb-4 block h-min w-min rounded-lg bg-blueNew"
+		><BackIcon class="h-12 w-12 text-white" /></a
+	>
 	{#if restaurant}
 		<div class="flex">
 			<img src={restaurant.photo} class="mr-8 w-96" />

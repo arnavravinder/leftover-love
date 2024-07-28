@@ -69,7 +69,7 @@
 	<Button
 		onClick={placeOrder}
 		text="Place Order"
-		disabled={!$session || !$session.user || !$session.user.uid || files.length == 0}
+		disabled={!$session || !$session.user || !$session.user.uid}
 		class="ml-auto mr-4 w-40 bg-blueNew text-white"
 	/>
 </div>

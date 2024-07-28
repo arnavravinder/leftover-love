@@ -10,6 +10,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import { restaurant, type Restaurant } from '$lib/restaurant';
 	import type { LayoutData } from '../../routes/$types';
+	import { cart } from '$lib/cart';
 
 	export let data: LayoutData;
 	let loading: boolean = true;
@@ -65,6 +66,7 @@
 		<p class="ml-auto text-2xl">{$session?.userData?.name || ''}</p>
 		{#if $session?.userData?.isUser}
 			<a href="/cart"><CartIcon class="my-auto" /></a>
+			<p>{$cart.items.length}</p>
 		{/if}
 		<Button
 			text="Sign Out"
