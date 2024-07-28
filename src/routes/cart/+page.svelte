@@ -54,7 +54,7 @@
 		{/each}
 	</div>
 	<div class="my-8 flex flex-col gap-2 rounded-md bg-white p-4">
-		<p class="text-4xl font-bold text-blueNew">Scan to Pay</p>
+		<p class="text-4xl font-bold text-blueNew">Scan to Pay Rs. {total} to {restaurant?.name}</p>
 		{#if restaurant}
 			<img
 				class="w-48"

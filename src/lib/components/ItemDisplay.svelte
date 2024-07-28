@@ -29,6 +29,7 @@
 			{/if}
 		</div>
 		<p>{item.description}</p>
+		<p>Rs. {item.price}</p>
 		{#if item.expiry?.toDate}
 			<p>
 				Expires on: {item.expiry?.toDate().toLocaleString('en-IN', {
