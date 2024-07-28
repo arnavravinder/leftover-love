@@ -7,6 +7,7 @@ export type Restaurant = {
 	name: string;
 	photo: string;
 	id: string;
+	upi: string;
 };
 
 export const restaurant = storable<Restaurant>({}, 'restaurant');

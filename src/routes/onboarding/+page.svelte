@@ -18,6 +18,7 @@
 	let address = '';
 	let phoneNumber = '';
 	let URL = '';
+	let upi = '';
 	let step = 1;
 	let files;
 	let photoURL = '';
@@ -56,7 +57,16 @@
 			</p>
 			<input class="w-full rounded-md border p-2" placeholder="Enter URL" bind:value={URL} />
 		{:else if step == 6 && !isUser}
-			<p class="text-2xl font-bold text-blueNew">6. Upload a picture for your restaurant</p>
+			<p class="text-2xl font-bold text-blueNew">
+				6. What's the UPI merchant code of your restaurant?
+			</p>
+			<input
+				class="w-full rounded-md border p-2"
+				placeholder="Enter UPI merchant code"
+				bind:value={upi}
+			/>
+		{:else if step == 7 && !isUser}
+			<p class="text-2xl font-bold text-blueNew">7. Upload a picture for your restaurant</p>
 			<input class="w-full rounded-md border p-2" type="file" accept="image/*" bind:files />
 		{:else if step == 2 && isUser}
 			<p class="text-2xl font-bold text-blueNew">2. What's your name?</p>
@@ -78,7 +88,7 @@
 			<button
 				class="rounded-md bg-redNew p-2 text-white disabled:opacity-75"
 				on:click={async () => {
-					if (!isUser && step < 6) step++;
+					if (!isUser && step < 7) step++;
 					else if (!isUser) {
 						const storageRef = ref(storage, `${files[0].lastModified}-${files[0].name}`);
 						const result = await uploadBytes(storageRef, files[0]);
@@ -89,7 +99,8 @@
 							phoneNumber,
 							URL,
 							photo: photoURL,
-							ownerUid: $session?.user?.uid
+							ownerUid: $session?.user?.uid,
+							upi
 						});
 						await addDoc(collection(db, 'userInfo'), {
 							isUser: false,
@@ -109,7 +120,7 @@
 					}
 				}}
 				disabled={nextDisabled}
-				>{(step < 6 && !isUser) || (isUser && step < 3) ? 'Next' : 'Submit'}</button
+				>{(step < 7 && !isUser) || (isUser && step < 3) ? 'Next' : 'Submit'}</button
 			>
 		</div>
 	</div>
