@@ -40,6 +40,7 @@
 		loading = true;
 
 		const fullPhoneNumber = `+91${phoneNumberBody!}`;
+		console.log(fullPhoneNumber);
 
 		const appVerifier = get(recaptchaStore);
 		if (!appVerifier) return;

@@ -26,9 +26,9 @@
 				goto('/restaurant/' + restaurant.id);
 			}}
 		>
-			<img class="rounded-t-md" src={restaurant.photo} />
+			<img class="h-44 w-96 rounded-t-md object-cover" src={restaurant.photo} />
 			<div class="m-4">
-				<p class="text-blueNew text-2xl font-bold">
+				<p class="text-2xl font-bold text-blueNew">
 					{restaurant.name}
 				</p>
 			</div>
