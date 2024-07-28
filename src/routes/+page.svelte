@@ -7,6 +7,10 @@
 	import PickupIcon from '~icons/mdi/car-pickup';
 </script>
 
+<svelte:head>
+	<title>Plateful | Home</title>
+</svelte:head>
+
 <div>
 	{#if $session?.userData?.isUser}
 		<RestaurantList />

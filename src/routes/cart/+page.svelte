@@ -43,6 +43,10 @@
 	$: total = $cart.items.reduce((x, val) => x + val.price * val.quantity, 0);
 </script>
 
+<svelte:head>
+	<title>Plateful | Cart</title>
+</svelte:head>
+
 <div class="m-4 flex flex-col">
 	<h1 class="m-2 text-center text-4xl font-bold text-blueNew">My Cart</h1>
 	<div class="rounded-lgp-4 flex flex-col gap-2">

@@ -5,14 +5,6 @@
 	import { addDoc, collection } from 'firebase/firestore';
 	import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
-	const submit = async () => {
-		await addDoc(collection(db, 'userInfo'), {
-			isUser: true,
-			uid: $session?.user?.uid
-		});
-		goto('/');
-	};
-
 	let isUser: boolean;
 	let name = '';
 	let address = '';
@@ -24,6 +16,10 @@
 	let photoURL = '';
 	$: nextDisabled = step == 1 && isUser === undefined;
 </script>
+
+<svelte:head>
+	<title>Plateful | Onboarding</title>
+</svelte:head>
 
 <div class="flex h-full flex-col justify-center">
 	<div class="m-4 mx-auto my-auto flex flex-col items-center gap-2 rounded-xl bg-white p-8 shadow">
@@ -72,7 +68,7 @@
 			<p class="text-2xl font-bold text-blueNew">2. What's your name?</p>
 			<input class="w-full rounded-md border p-2" placeholder="Enter name" bind:value={name} />
 		{:else if step == 3 && isUser}
-			<p class="text-2xl font-bold text-blueNew">4. What's your phone number?</p>
+			<p class="text-2xl font-bold text-blueNew">3. What's your phone number?</p>
 			<input
 				class="w-full rounded-md border p-2"
 				placeholder="Enter phone number"

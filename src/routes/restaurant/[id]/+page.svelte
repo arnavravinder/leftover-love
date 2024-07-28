@@ -21,6 +21,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Plateful | {restaurant?.name || 'Restaurant'}</title>
+</svelte:head>
+
 <div class="m-8">
 	<a href="/" class="mb-4 block h-min w-min rounded-lg bg-blueNew"
 		><BackIcon class="h-12 w-12 text-white" /></a

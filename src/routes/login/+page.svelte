@@ -115,9 +115,13 @@
 	$: OTPFormValid = OTPCode.length === 6 && confirmation && !loading;
 </script>
 
+<svelte:head>
+	<title>Plateful | Login</title>
+</svelte:head>
+
 <div class="flex h-full flex-col justify-center">
 	<div class="m-4 mx-auto my-auto flex flex-col items-center gap-2 rounded-xl bg-white p-8 shadow">
-		<h1 class="text-blueNew text-center text-4xl font-bold">Login</h1>
+		<h1 class="text-center text-4xl font-bold text-blueNew">Login</h1>
 		{#if !confirmation}
 			<form class="flex flex-col gap-2" on:submit={handlePhoneSubmit}>
 				<div class="flex">
@@ -155,7 +159,7 @@
 		<div>or</div>
 
 		<Button
-			class="bg-blueNew w-full text-white"
+			class="w-full bg-blueNew text-white"
 			onClick={loginWithGoogle}
 			text="Login with Google"
 		/>

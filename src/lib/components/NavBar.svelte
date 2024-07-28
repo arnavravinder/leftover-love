@@ -67,6 +67,8 @@
 		{#if $session?.userData?.isUser}
 			<a href="/cart"><CartIcon class="my-auto" /></a>
 			<p>{$cart.items.length}</p>
+		{:else}
+			<a href="/orders">View Orders</a>
 		{/if}
 		<Button
 			text="Sign Out"

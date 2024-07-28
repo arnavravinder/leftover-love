@@ -51,6 +51,9 @@
 </script>
 
 <div class="m-2">
+	{#if orders.length === 0}
+		<h2 class="text-center text-4xl font-bold">There are currently no orders</h2>
+	{/if}
 	{#each orders as order, i}
 		<div class="flex flex-col rounded-xl bg-slate-100 p-2">
 			<h2 class="text-center text-4xl font-bold">Order No. {i + 1}</h2>
