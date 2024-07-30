@@ -1,38 +1,25 @@
-# create-svelte
+# Plateful 🍽️
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+![Plateful Logo](https://raw.githubusercontent.com/zsaquarian/plateful/main/logo.png)
 
-## Creating a project
+## About the Project
 
-If you're seeing this, you've probably already done this step. Congrats!
+Plateful is an innovative platform designed to tackle food waste and promote sustainability by connecting restaurants with surplus food to individuals in need. Our mission is to reduce food waste, encourage sustainable practices, and foster community connections. Through Plateful, users can easily access high-quality surplus food from restaurants at a lower cost, while restaurants can monetize their excess food, reducing waste and generating additional revenue.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Key Features ✨
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- **User-Friendly Interface:** Easy navigation and interactive maps to find surplus food nearby.
+- **Restaurant Onboarding:** Seamless process for restaurants to join and list their surplus food.
+- **Secure Transactions:** Integration with UPI for secure and convenient payments.
+- **Real-Time Updates:** Live order previews and real-time updates for restaurants.
+- **Community Building:** Connects users and restaurants to promote sustainability and reduce food waste.
 
-## Developing
+## Technologies Used 🛠️
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+- **Svelte:** A modern JavaScript framework for building fast and reactive user interfaces.
+- **Firebase:** Used for backend services including authentication, real-time database, and storage.
+- **CSS and JavaScript:** For styling and adding interactivity to the platform.
 
-```bash
-npm run dev
+## Website 🌐
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Visit our website: [plate-ful.tech](https://plate-ful.tech)
