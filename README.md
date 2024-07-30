@@ -1,6 +1,6 @@
 # Plateful 🍽️
 
-![Plateful Logo](https://raw.githubusercontent.com/zsaquarian/plateful/main/logo.png)
+![Plateful Logo](https://github.com/zsaquarian/plateful/blob/sveltekit-refactor/static/logo.png?raw=true)
 
 ## About the Project
 
