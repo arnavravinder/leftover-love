@@ -1,3 +1,4 @@
 - [ ] Map to see restaurant locations
 - [ ] Items left in stock
 - [ ] Automatically remove expired items
+- [ ] New Landing Page
