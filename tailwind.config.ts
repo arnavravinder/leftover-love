@@ -3,7 +3,7 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
-
+// new theme
 	theme: {
 		extend: {
 			colors: {
