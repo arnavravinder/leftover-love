@@ -565,7 +565,7 @@ li > a {
 .end-item {
     margin-left: auto;
 }</style>
-<script lang="js">
+<script>
 AOS.init();
 
 document.querySelectorAll('.text-box-effect').forEach(element => {
