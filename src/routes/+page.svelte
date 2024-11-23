@@ -1,10 +1,21 @@
 <script lang="ts">
-	import RestaurantList from '$lib/components/RestaurantList.svelte';
-	import { session } from '$lib/session';
-	import RestaurantHome from '$lib/components/RestaurantHome.svelte';
-	import FoodIcon from '~icons/mdi/food';
-	import QRIcon from '~icons/mdi/qrcode-scan';
-	import PickupIcon from '~icons/mdi/car-pickup';
+  import { onMount } from 'svelte';
+  import AOS from 'aos';
+  import 'aos/dist/aos.css';
+  import RestaurantList from '$lib/components/RestaurantList.svelte';
+  import RestaurantHome from '$lib/components/RestaurantHome.svelte';
+  import { session } from '$lib/session';
+  import FoodIcon from '~icons/mdi/food';
+  import QRIcon from '~icons/mdi/qrcode-scan';
+  import PickupIcon from '~icons/mdi/car-pickup';
+
+  onMount(() => {
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-in-out',
+      once: true,
+    });
+  });
 </script>
 
 <svelte:head>
@@ -17,211 +28,7 @@
 	{:else if $session?.user?.uid}
 		<RestaurantHome />
 	{:else}
-// add here
-    <nav>
-        <ul>
-            <li class = 'logo-item'>
-                <a class = 'nav-link' href="#">Plateful</a>
-            </li>
-            <li>
-                <a class = 'nav-link' href="#about-us">About Us</a>
-            </li>
-            <li>
-                <a class = 'nav-link' href="#services">Services</a>
-            </li>
-            <li>
-                <a class = 'nav-link' href="#contact-us">Contact Us</a>
-            </li>
-            <li class = 'end-item'>
-                <a class = 'nav-link'>Log In</a>
-            </li>
-        </ul>
-    </nav>
-
-    <div class = 'container image-container'>
-        <div class = 'container main-container'>
-            <div class = 'text-container'>
-                <div class = 'main-text align-left'><div class = 'text-box-effect text-box-left'></div><div class = 'box-trailer text-box-left'></div><span class = 'align-span'>GOOD FOOD</span></div>
-                <div class = 'main-text align-right'><span class = 'align-span outline-text'>LOW COSTS</span><div class = 'text-box-effect text-box-right'></div><div class = 'box-trailer text-box-right'></div></div>
-            </div>
-        </div>
-
-        <div class = 'container explanation-container'>
-            <p class = 'explanation-para' data-aos="fade-up" data-aos-delay = '2000'>Welcome to Plateful, where we turn surplus food into affordable meals! Our mission is to reduce food waste by connecting you with delicious leftover dishes from local restaurants at unbeatable prices. Whether you’re a foodie seeking new flavors or looking for budget-friendly options, Plateful helps you enjoy tasty meals while supporting sustainability. Join us in making a difference—one plate at a time!</p>
-        </div>
-
-        <div class = 'down-btn-container'>
-            <button class = 'down-btn'><i class="fa-solid fa-chevron-down"></i></button>
-        </div>
-    </div>
-
-    <div class = "trending-books" id = "trending">
-        <div class = "header-box-trending">
-            <h1>Order Now</h1>
-        </div>
-        <div class = "books-box">
-            <div class = 'book-container'>
-                <div class = "book-image">
-                </div>
-                <div class = "book-text">
-                    <div class = "book-text-container">
-                        <p class = "book-text-title">Paratha</p>
-                        <p class = "book-text-grade">punjab grill</p>
-                        <p class = "book-text-seller">₹200</p>
-                    </div>
-                    <div class = "see-more-container">
-                      <button class = "see-more">See More</button>
-                    </div>
-                </div>
-            </div>
-            <div class = 'book-container'>
-                <div class = "book-image">
-                </div>
-                <div class = "book-text">
-                    <div class = "book-text-container">
-                        <p class = "book-text-title">Paratha</p>
-                        <p class = "book-text-grade">punjab grill</p>
-                        <p class = "book-text-seller">₹200</p>
-                    </div>
-                    <div class = "see-more-container">
-                      <button class = "see-more">See More</button>
-                    </div>
-                </div>
-            </div>
-            <div class = 'book-container'>
-                <div class = "book-image">
-                </div>
-                <div class = "book-text">
-                    <div class = "book-text-container">
-                        <p class = "book-text-title">Paratha</p>
-                        <p class = "book-text-grade">punjab grill</p>
-                        <p class = "book-text-seller">₹200</p>
-                    </div>
-                    <div class = "see-more-container">
-                      <button class = "see-more">See More</button>
-                    </div>
-                </div>
-            </div>
-            <div class = 'book-container'>
-                <div class = "book-image">
-                </div>
-                <div class = "book-text">
-                    <div class = "book-text-container">
-                        <p class = "book-text-title">Paratha</p>
-                        <p class = "book-text-grade">punjab grill</p>
-                        <p class = "book-text-seller">₹200</p>
-                    </div>
-                    <div class = "see-more-container">
-                      <button class = "see-more">See More</button>
-                    </div>
-                </div>
-            </div>
-            <div class = 'book-container'>
-                <div class = "book-image">
-                </div>
-                <div class = "book-text">
-                    <div class = "book-text-container">
-                        <p class = "book-text-title">Paratha</p>
-                        <p class = "book-text-grade">punjab grill</p>
-                        <p class = "book-text-seller">₹200</p>
-                    </div>
-                    <div class = "see-more-container">
-                      <button class = "see-more">See More</button>
-                    </div>
-                </div>
-            </div>
-            <div class = 'book-container'>
-                <div class = "book-image">
-                </div>
-                <div class = "book-text">
-                    <div class = "book-text-container">
-                        <p class = "book-text-title">Paratha</p>
-                        <p class = "book-text-grade">punjab grill</p>
-                        <p class = "book-text-seller">₹200</p>
-                    </div>
-                    <div class = "see-more-container">
-                      <button class = "see-more">See More</button>
-                    </div>
-                </div>
-            </div>
-            <div class = 'book-container'>
-                <div class = "book-image">
-                </div>
-                <div class = "book-text">
-                    <div class = "book-text-container">
-                        <p class = "book-text-title">Paratha</p>
-                        <p class = "book-text-grade">punjab grill</p>
-                        <p class = "book-text-seller">₹200</p>
-                    </div>
-                    <div class = "see-more-container">
-                      <button class = "see-more">See More</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class = 'container steps-container'>
-        <div class = 'scroll-image-container'>
-            <div class = 'scroll-title'>
-                <h1>STEPS</h1>
-            </div>
-            <div class='scroll-text scroll-left scroll-top'>
-                <div class='scroll-number'>1</div>
-                <div class='scroll-header'>Browse Deals</div>
-                <div class='scroll-para'>
-                    Discover surplus food from nearby restaurants at discounted prices. These deals are updated daily, so act fast to grab your favorites before they’re gone!
-                </div>
-            </div>
-            <div class='scroll-text scroll-left scroll-bottom'>
-                <div class='scroll-number'>2</div>
-                <div class='scroll-header'>Select Your Items</div>
-                <div class='scroll-para'>
-                    Choose from a variety of delicious options. Add your selected items to your cart and review your choices before proceeding to checkout.
-                </div>
-            </div>
-            <div class='scroll-text scroll-right scroll-bottom'>
-                <div class='scroll-number'>3</div>
-                <div class='scroll-header'>Make Payment</div>
-                <div class='scroll-para'>
-                    Pay securely through our platform. Once the payment is completed, you'll receive a confirmation with pickup instructions.
-                </div>
-            </div>
-            <div class='scroll-text scroll-right scroll-top'>
-                <div class='scroll-number'>4</div>
-                <div class='scroll-header'>Pick Up Your Order</div>
-                <div class='scroll-para'>
-                    Head to the restaurant and show your confirmation to pick up your order. Enjoy your meal while helping reduce food waste!
-                </div>
-            </div>            
-        </div>
-    </div>
-
-    <div class="container services-container">
-        <div class="header-box">
-            <h1 data-aos="fade-up">Our Services</h1>
-        </div>
-
-        <div class="services-boxes" data-aos="fade-up">
-            <div class="service-box">
-                <i class="fa-solid fa-utensils service-icon"></i>
-                <h2>Curated Meals</h2>
-                <p>We turn unsold, fresh food into affordable meals for you.</p>
-            </div>
-            <div class="service-box">
-                <i class="fa-solid fa-hand-holding-heart service-icon"></i>
-                <h2>Sustainability</h2>
-                <p>Reduce food waste while enjoying delicious dishes.</p>
-            </div>
-            <div class="service-box">
-                <i class="fa-solid fa-truck-fast service-icon"></i>
-                <h2>Fast Delivery</h2>
-                <p>Choose delivery or pickup at your convenience.</p>
-            </div>
-        </div>
-    </div>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+	<style> @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
     margin: 0;
@@ -757,9 +564,9 @@ li > a {
 
 .end-item {
     margin-left: auto;
-}
- </style>
- <script> AOS.init();
+}</style>
+<script lang="js">
+AOS.init();
 
 document.querySelectorAll('.text-box-effect').forEach(element => {
     element.classList.add('expand');
@@ -883,5 +690,208 @@ window.addEventListener('scroll', () => {
   }
 })
 </script>
+
+    <nav>
+        <ul>
+            <li class = 'logo-item'>
+                <a class = 'nav-link' href="#">Plateful</a>
+            </li>
+            <li>
+                <a class = 'nav-link' href="#about-us">About Us</a>
+            </li>
+            <li>
+                <a class = 'nav-link' href="#services">Services</a>
+            </li>
+            <li>
+                <a class = 'nav-link' href="#contact-us">Contact Us</a>
+            </li>
+            <li class = 'end-item'>
+                <a class = 'nav-link'>Log In</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class = 'container image-container'>
+        <div class = 'container main-container'>
+            <div class = 'text-container'>
+                <div class = 'main-text align-left'><div class = 'text-box-effect text-box-left'></div><div class = 'box-trailer text-box-left'></div><span class = 'align-span'>GOOD FOOD</span></div>
+                <div class = 'main-text align-right'><span class = 'align-span outline-text'>LOW COSTS</span><div class = 'text-box-effect text-box-right'></div><div class = 'box-trailer text-box-right'></div></div>
+            </div>
+        </div>
+
+        <div class = 'container explanation-container'>
+            <p class = 'explanation-para' data-aos="fade-up" data-aos-delay = '2000'>Welcome to Plateful, where we turn surplus food into affordable meals! Our mission is to reduce food waste by connecting you with delicious leftover dishes from local restaurants at unbeatable prices. Whether you’re a foodie seeking new flavors or looking for budget-friendly options, Plateful helps you enjoy tasty meals while supporting sustainability. Join us in making a difference—one plate at a time!</p>
+        </div>
+
+        <div class = 'down-btn-container'>
+            <button class = 'down-btn'><i class="fa-solid fa-chevron-down"></i></button>
+        </div>
+    </div>
+
+    <div class = "trending-books" id = "trending">
+        <div class = "header-box-trending">
+            <h1>Order Now</h1>
+        </div>
+        <div class = "books-box">
+            <div class = 'book-container'>
+                <div class = "book-image">
+                </div>
+                <div class = "book-text">
+                    <div class = "book-text-container">
+                        <p class = "book-text-title">Paratha</p>
+                        <p class = "book-text-grade">punjab grill</p>
+                        <p class = "book-text-seller">₹200</p>
+                    </div>
+                    <div class = "see-more-container">
+                      <button class = "see-more">See More</button>
+                    </div>
+                </div>
+            </div>
+            <div class = 'book-container'>
+                <div class = "book-image">
+                </div>
+                <div class = "book-text">
+                    <div class = "book-text-container">
+                        <p class = "book-text-title">Paratha</p>
+                        <p class = "book-text-grade">punjab grill</p>
+                        <p class = "book-text-seller">₹200</p>
+                    </div>
+                    <div class = "see-more-container">
+                      <button class = "see-more">See More</button>
+                    </div>
+                </div>
+            </div>
+            <div class = 'book-container'>
+                <div class = "book-image">
+                </div>
+                <div class = "book-text">
+                    <div class = "book-text-container">
+                        <p class = "book-text-title">Paratha</p>
+                        <p class = "book-text-grade">punjab grill</p>
+                        <p class = "book-text-seller">₹200</p>
+                    </div>
+                    <div class = "see-more-container">
+                      <button class = "see-more">See More</button>
+                    </div>
+                </div>
+            </div>
+            <div class = 'book-container'>
+                <div class = "book-image">
+                </div>
+                <div class = "book-text">
+                    <div class = "book-text-container">
+                        <p class = "book-text-title">Paratha</p>
+                        <p class = "book-text-grade">punjab grill</p>
+                        <p class = "book-text-seller">₹200</p>
+                    </div>
+                    <div class = "see-more-container">
+                      <button class = "see-more">See More</button>
+                    </div>
+                </div>
+            </div>
+            <div class = 'book-container'>
+                <div class = "book-image">
+                </div>
+                <div class = "book-text">
+                    <div class = "book-text-container">
+                        <p class = "book-text-title">Paratha</p>
+                        <p class = "book-text-grade">punjab grill</p>
+                        <p class = "book-text-seller">₹200</p>
+                    </div>
+                    <div class = "see-more-container">
+                      <button class = "see-more">See More</button>
+                    </div>
+                </div>
+            </div>
+            <div class = 'book-container'>
+                <div class = "book-image">
+                </div>
+                <div class = "book-text">
+                    <div class = "book-text-container">
+                        <p class = "book-text-title">Paratha</p>
+                        <p class = "book-text-grade">punjab grill</p>
+                        <p class = "book-text-seller">₹200</p>
+                    </div>
+                    <div class = "see-more-container">
+                      <button class = "see-more">See More</button>
+                    </div>
+                </div>
+            </div>
+            <div class = 'book-container'>
+                <div class = "book-image">
+                </div>
+                <div class = "book-text">
+                    <div class = "book-text-container">
+                        <p class = "book-text-title">Paratha</p>
+                        <p class = "book-text-grade">punjab grill</p>
+                        <p class = "book-text-seller">₹200</p>
+                    </div>
+                    <div class = "see-more-container">
+                      <button class = "see-more">See More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class = 'container steps-container'>
+        <div class = 'scroll-image-container'>
+            <div class = 'scroll-title'>
+                <h1>STEPS</h1>
+            </div>
+            <div class='scroll-text scroll-left scroll-top'>
+                <div class='scroll-number'>1</div>
+                <div class='scroll-header'>Browse Deals</div>
+                <div class='scroll-para'>
+                    Discover surplus food from nearby restaurants at discounted prices. These deals are updated daily, so act fast to grab your favorites before they’re gone!
+                </div>
+            </div>
+            <div class='scroll-text scroll-left scroll-bottom'>
+                <div class='scroll-number'>2</div>
+                <div class='scroll-header'>Select Your Items</div>
+                <div class='scroll-para'>
+                    Choose from a variety of delicious options. Add your selected items to your cart and review your choices before proceeding to checkout.
+                </div>
+            </div>
+            <div class='scroll-text scroll-right scroll-bottom'>
+                <div class='scroll-number'>3</div>
+                <div class='scroll-header'>Make Payment</div>
+                <div class='scroll-para'>
+                    Pay securely through our platform. Once the payment is completed, you'll receive a confirmation with pickup instructions.
+                </div>
+            </div>
+            <div class='scroll-text scroll-right scroll-top'>
+                <div class='scroll-number'>4</div>
+                <div class='scroll-header'>Pick Up Your Order</div>
+                <div class='scroll-para'>
+                    Head to the restaurant and show your confirmation to pick up your order. Enjoy your meal while helping reduce food waste!
+                </div>
+            </div>            
+        </div>
+    </div>
+
+    <div class="container services-container">
+        <div class="header-box">
+            <h1 data-aos="fade-up">Our Services</h1>
+        </div>
+
+        <div class="services-boxes" data-aos="fade-up">
+            <div class="service-box">
+                <i class="fa-solid fa-utensils service-icon"></i>
+                <h2>Curated Meals</h2>
+                <p>We turn unsold, fresh food into affordable meals for you.</p>
+            </div>
+            <div class="service-box">
+                <i class="fa-solid fa-hand-holding-heart service-icon"></i>
+                <h2>Sustainability</h2>
+                <p>Reduce food waste while enjoying delicious dishes.</p>
+            </div>
+            <div class="service-box">
+                <i class="fa-solid fa-truck-fast service-icon"></i>
+                <h2>Fast Delivery</h2>
+                <p>Choose delivery or pickup at your convenience.</p>
+            </div>
+        </div>
+    </div>
 	{/if}
 </div>
